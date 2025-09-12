@@ -1,0 +1,14 @@
+1º CRIAR O PROJETO NODEJS
+npm init -y
+
+2º CRIAR O ARQUIVO DO SERVIDOR
+
+touch server.js
+
+3º INSTALAR AS DEPÊNDENCIAS 
+
+npm install express
+npm install cors
+npm install body-parser
+npm install uuid
+npm install nodemon -g
