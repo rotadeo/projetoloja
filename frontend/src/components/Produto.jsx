@@ -20,7 +20,7 @@ const Produto = () => {
 
         // TRATAMENTO DE ERROS
         try{
-            const response = await axios.post(API_URL)
+            const response = await axios.post(API_URL,novoProduto);
             setProduto([...produto,response.data])
             setNovoProduto({nome:"",descricao:""})
             setEditar(false);
@@ -38,7 +38,8 @@ const Produto = () => {
     // CONSULTAR PRODUTOS CADASTRADOS
     const consultarProdutos = async()=>{
         try{
-            const response = await axios.get(API_URL)
+            const response = await axios.get(API_URL);
+            setProduto(response.data);
         }
         catch(error){
             console.log("Erro ao consultao produto", error)
@@ -65,7 +66,7 @@ const Produto = () => {
     }
 
     // DELETAR O PRODUTO CADASTRADO
-    const deletarProduto = async()=>{
+    const deletarProduto = async(id)=>{
         if(window.confirm("Tem certeza que deseja deletar este produto")){
             try{
                 await axios.delete(`${API_URL}/${id}`);
@@ -97,12 +98,12 @@ const Produto = () => {
     }
 
   return (
-    <div>
-      <h1>Cadastro de Produto</h1>
-      <form>
-        <div>
-          <label>Nome Produto</label>
-          <input 
+    <div className="mx-auto p-4 bg-gray-200 min-h-screen">
+      <h1 className="font-bold text-2xl text-center mb-5">Cadastro de Produto</h1>
+      <form className="mb-4">
+        <div className="mb-4">
+          <label className="block text-xl font-medium text-gray-700">Nome Produto</label>
+          <input className="mt-2 border rounded w-full "
            type="text"
            id="nome" 
            placeholder="Digite o nome Produto"
@@ -114,8 +115,8 @@ const Produto = () => {
         </div>
 
         <div>
-          <label>Descrição Produto</label>
-          <input
+          <label className="block text-xl font-medium text-gray-700">Descrição Produto</label>
+          <input className="mt-2 border rounded w-full "
             type="text"
             id="descricao"
             placeholder="Digite descrição Produto"
@@ -123,19 +124,19 @@ const Produto = () => {
             onChange={(e)=>setNovoProduto({...novoProduto, descricao : e.target.value})}
           />
         </div>
-            <button onClick={handleSubmit}>
+            <button onClick={handleSubmit} className="bg-blue-400 hover:bg-blue-500 font-bold py-0.5 px-2 mt-4 rounded">
                 {editar ? "Alterar" : "Cadastrar"}
             </button>
       </form>
       <ul>
         {produto.map(item =>(
-        <li key={item.id}>
+        <li key={item.id} className="border p-2 mb-4 rounded flex items-center justify-between  ">
             <div>
-                <strong>{item.nome}</strong>{item.descricao}
+                <strong className="font-semibold">{item.nome}</strong>{item.descricao}
             </div>
             <div>
-                <button onClick={handleAlterar(item)}>Editar</button>
-                <button onClick={()=>deletarProduto(item.id)}>Deletar</button>
+                <button onClick={()=>handleAlterar(item)} className="bg-amber-300 hover:bg-amber-500 text-black font-bold py-0.5 px-2 rounded mr-3">Editar</button>
+                <button onClick={()=>deletarProduto(item.id)} className="bg-red-500 hover:bg-red-700 text-black font-bold py-0.5 px-2 rounded mr-3">Deletar</button>
             </div>
         </li>
         ))}     
