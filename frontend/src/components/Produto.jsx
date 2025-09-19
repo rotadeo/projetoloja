@@ -9,6 +9,7 @@ const Produto = () => {
     const [produto, setProduto] = useState([]);
     const [novoProduto, setNovoProduto] = useState({nome:"",descricao:""});
     const [editar, setEditar] = useState(false);
+    const [pesquisar, setPesquisar] = useState("");
 
     // CADASTRAR PRODUTO
     const cadastrarProduto = async ()=>{
@@ -30,21 +31,26 @@ const Produto = () => {
         }
     }
 
-    // HOOK useEffect - EFEITO PARA CARREGAR A LISTA DE TODOS OS PRODUTOS CADASTRADOS
-    useEffect(()=>{
-        consultarProdutos();
-    })
-
     // CONSULTAR PRODUTOS CADASTRADOS
     const consultarProdutos = async()=>{
         try{
-            const response = await axios.get(API_URL);
+            // verifica se trouxe uma pesquisa especiica senão devolve a lista com todos
+            const url = pesquisar ? `${API_URL}/search?pesquisa=${pesquisar}` : API_URL
+            const response = await axios.get(url);
             setProduto(response.data);
         }
         catch(error){
             console.log("Erro ao consultao produto", error)
         }
-    }
+    };
+
+    // HOOK useEffect - EFEITO PARA CARREGAR A LISTA DE TODOS OS PRODUTOS CADASTRADOS
+    useEffect(()=>{
+        const timer=setTimeout(()=>{
+            consultarProdutos();
+        },300) // 3 segundos
+        return ()=>clearTimeout(timer)
+    },[pesquisar])
 
     // ALTERAR PRODUTO CADASTRADO
     const alterarProduto = async()=>{
@@ -101,6 +107,13 @@ const Produto = () => {
     <div className="mx-auto p-4 bg-gray-200 min-h-screen">
       <h1 className="font-bold text-2xl text-center mb-5">Cadastro de Produto</h1>
       <form className="mb-4">
+        <div>
+            <input type="text" 
+            placeholder="Pesquisar..." 
+            value={pesquisar} 
+            onChange={(e)=>setPesquisar(e.target.value)} 
+            className="w-[300px] pl-4 pr-4 py-2 border-gray-400 rounded-full"/>
+        </div>
         <div className="mb-4">
           <label className="block text-xl font-medium text-gray-700">Nome Produto</label>
           <input className="mt-2 border rounded w-full "
@@ -132,7 +145,7 @@ const Produto = () => {
         {produto.map(item =>(
         <li key={item.id} className="border p-2 mb-4 rounded flex items-center justify-between  ">
             <div>
-                <strong className="font-semibold">{item.nome}</strong>{item.descricao}
+                <strong className="font-semibold">{item.nome} - </strong>{item.descricao}
             </div>
             <div>
                 <button onClick={()=>handleAlterar(item)} className="bg-amber-300 hover:bg-amber-500 text-black font-bold py-0.5 px-2 rounded mr-3">Editar</button>
