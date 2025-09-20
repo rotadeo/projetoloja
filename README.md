@@ -4,7 +4,10 @@ Este é um projeto simples de CRUD (Create, Read, Update, Delete) para gerenciar
 
 O projeto utiliza um arquivo local `produtos.json` que funciona como um banco de dados para garantir a persistência das informações.
 
-[Link do Projeto para Utilização](https://rotadeo.github.io/projetoloja/)
+---
+## Imagem do Projeto
+
+[Imagem](./frontend/src/img/imagem.png)
 
 ---
 
