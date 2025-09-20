@@ -7,7 +7,7 @@ O projeto utiliza um arquivo local `produtos.json` que funciona como um banco de
 ---
 ## Imagem do Projeto
 
-[Imagem](./frontend/src/img/imagem.png)
+![Imagem](./frontend/src/img/imagem.png)
 
 ---
 
