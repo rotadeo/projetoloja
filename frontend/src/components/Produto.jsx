@@ -105,18 +105,18 @@ const Produto = () => {
 
   return (
     <div className="mx-auto p-4 bg-gray-200 min-h-screen">
-      <h1 className="font-bold text-2xl text-center mb-5">Cadastro de Produto</h1>
-      <form className="mb-4">
+      <h1 className="text-gray-800 font-bold text-2xl text-center mb-5 mt-6">Cadastro de Produto</h1>
+      <form className="mb-4 grid place-items-center">
         <div>
             <input type="text" 
-            placeholder="Pesquisar..." 
+            placeholder="Pesquisar Produto..." 
             value={pesquisar} 
             onChange={(e)=>setPesquisar(e.target.value)} 
-            className="w-[300px] pl-4 pr-4 py-2 border-gray-400 rounded-full"/>
+            className="border w-[1000px] mt-3 pl-4 pr-4 py-2 border-gray-400 rounded"/>
         </div>
         <div className="mb-4">
-          <label className="block text-xl font-medium text-gray-700">Nome Produto</label>
-          <input className="mt-2 border rounded w-full "
+          <label className="block text-xl font-medium text-gray-700 mt-5">Nome Produto</label>
+          <input className=" mt-2 border pl-4 py-2 rounded w-[1000px] "
            type="text"
            id="nome" 
            placeholder="Digite o nome Produto"
@@ -128,8 +128,8 @@ const Produto = () => {
         </div>
 
         <div>
-          <label className="block text-xl font-medium text-gray-700">Descrição Produto</label>
-          <input className="mt-2 border rounded w-full "
+          <label className="block text-xl font-medium text-gray-700 mt-2">Descrição Produto</label>
+          <input className="mt-2 border rounded w-[1000px] pl-4 py-2"
             type="text"
             id="descricao"
             placeholder="Digite descrição Produto"
@@ -137,19 +137,19 @@ const Produto = () => {
             onChange={(e)=>setNovoProduto({...novoProduto, descricao : e.target.value})}
           />
         </div>
-            <button onClick={handleSubmit} className="bg-blue-400 hover:bg-blue-500 font-bold py-0.5 px-2 mt-4 rounded">
+            <button onClick={handleSubmit} className="bg-blue-400 hover:bg-blue-600 text-white font-bold mr-228 py-1.5 px-2 mt-8 rounded">
                 {editar ? "Alterar" : "Cadastrar"}
             </button>
       </form>
-      <ul>
+      <ul className="grid place-items-center p-4">
         {produto.map(item =>(
-        <li key={item.id} className="border p-2 mb-4 rounded flex items-center justify-between  ">
+        <li key={item.id} className="border p-2 mb-4 rounded flex items-center justify-between w-[1000px]">
             <div>
                 <strong className="font-semibold">{item.nome} - </strong>{item.descricao}
             </div>
             <div>
-                <button onClick={()=>handleAlterar(item)} className="bg-amber-300 hover:bg-amber-500 text-black font-bold py-0.5 px-2 rounded mr-3">Editar</button>
-                <button onClick={()=>deletarProduto(item.id)} className="bg-red-500 hover:bg-red-700 text-black font-bold py-0.5 px-2 rounded mr-3">Deletar</button>
+                <button onClick={()=>handleAlterar(item)} className="bg-blue-200 hover:bg-blue-300 text-black font-bold py-0.5 px-2 rounded mr-3">Editar</button>
+                <button onClick={()=>deletarProduto(item.id)} className="bg-red-500 hover:bg-red-800 text-white font-bold py-0.5 px-2 rounded mr-3">Deletar</button>
             </div>
         </li>
         ))}     
